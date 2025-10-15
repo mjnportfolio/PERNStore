@@ -33,7 +33,7 @@ export const createProduct = async (req, res) => {
 export const getProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    await sql`
+    const product = await sql`
       SELECT * FROM products WHERE id = ${id}
     `;
     res.status(200).json({ success: true, data: product[0] });
