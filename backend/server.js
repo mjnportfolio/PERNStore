@@ -11,8 +11,15 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const isProduction = process.env.NODE_ENV === "production";
+
+const corsOptions = {
+  origin: isProduction ? process.env.FRONTEND_URL : "*", // Allow only frontend in production
+  credentials: true, // Optional if you’re using cookies or auth headers
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(morgan("dev"));
 
